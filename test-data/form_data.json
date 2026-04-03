@@ -1,0 +1,13 @@
+{
+  "valid_submissions": [
+    {"country": "us", "gender": "male", "expected": "Submitted: us | agreed | male"},
+    {"country": "uk", "gender": "female", "expected": "Submitted: uk | agreed | female"},
+    {"country": "ae", "gender": "male", "expected": "Submitted: ae | agreed | male"},
+    {"country": "in", "gender": "female", "expected": "Submitted: in | agreed | female"}
+  ],
+  "invalid_submissions": [
+    {"country": "",   "gender": "male",   "terms": false, "expected": "Error: Select a country"},
+    {"country": "us", "gender": "male",   "terms": false, "expected": "Error: Accept terms"},
+    {"country": "us", "gender": "",       "terms": true,  "expected": "Error: Select gender"}
+  ]
+}

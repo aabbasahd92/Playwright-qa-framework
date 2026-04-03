@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Test Site</title>
+</head>
+<body>
+  <h1>Welcome to My Site</h1>
+
+  <!-- Original search -->
+  <input id="search" type="text" placeholder="Search something...">
+  <button id="btn" onclick="doSearch()">Search</button>
+  <p id="result"></p>
+
+  <!-- Form section -->
+  <h2>Registration Form</h2>
+  <form id="reg-form">
+    <select id="country">
+      <option value="">Select country</option>
+      <option value="us">United States</option>
+      <option value="uk">United Kingdom</option>
+      <option value="ae">UAE</option>
+      <option value="in">India</option>
+    </select>
+
+    <br><br>
+    <input type="checkbox" id="terms"> 
+    <label for="terms">I agree to terms</label>
+
+    <br><br>
+    <input type="radio" name="gender" id="male" value="male">
+    <label for="male">Male</label>
+    <input type="radio" name="gender" id="female" value="female">
+    <label for="female">Female</label>
+
+    <br><br>
+    <input type="file" id="upload">
+
+    <br><br>
+    <button type="button" id="submit-btn" onclick="submitForm()">Submit</button>
+  </form>
+
+  <p id="form-result"></p>
+
+  <script>
+    function doSearch() {
+      const val = document.getElementById("search").value;
+      document.getElementById("result").textContent = "You searched: " + val;
+    }
+
+    function submitForm() {
+      const country = document.getElementById("country").value;
+      const terms = document.getElementById("terms").checked;
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const file = document.getElementById("upload").files[0];
+
+      if (!country) { document.getElementById("form-result").textContent = "Error: Select a country"; return; }
+      if (!terms) { document.getElementById("form-result").textContent = "Error: Accept terms"; return; }
+      if (!gender) { document.getElementById("form-result").textContent = "Error: Select gender"; return; }
+
+      document.getElementById("form-result").textContent = 
+        "Submitted: " + country + " | " + (terms ? "agreed" : "not agreed") + " | " + gender.value;
+    }
+  </script>
+</body>
+</html>
