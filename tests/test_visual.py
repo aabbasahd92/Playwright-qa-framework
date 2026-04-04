@@ -1,3 +1,4 @@
+import pytest
 import os
 from PIL import Image, ImageChops
 from playwright.sync_api import Page
@@ -38,12 +39,14 @@ def compare_screenshot(page: Page, name: str, threshold: int = 500000):
 
     
 
-    
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="Visual tests run locally only")
 
 def test_login_page_visual(page: Page):
     page.goto("https://www.saucedemo.com")
     page.wait_for_load_state("networkidle")
     compare_screenshot(page, "login-page")
+
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="Visual tests run locally only")
 
 def test_inventory_page_visual(page: Page):
     login = LoginPage(page)
@@ -52,6 +55,8 @@ def test_inventory_page_visual(page: Page):
     page.wait_for_url("**/inventory.html")
     page.wait_for_load_state("networkidle")
     compare_screenshot(page, "inventory-page")
+
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="Visual tests run locally only")
 
 def test_cart_page_visual(page: Page):
     login = LoginPage(page)
