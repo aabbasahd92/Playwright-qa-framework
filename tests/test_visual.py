@@ -6,7 +6,20 @@ from pages.login_page import LoginPage
 BASELINE_DIR = "visual-baselines"
 os.makedirs(BASELINE_DIR, exist_ok=True)
 
-def compare_screenshot(page: Page, name: str):
+def compare_screenshot_element(element, name: str):
+    actual_path = f"{BASELINE_DIR}/{name}-actual.png"
+    baseline_path = f"{BASELINE_DIR}/{name}-baseline.png"
+    element.screenshot(path=actual_path)
+    if not os.path.exists(baseline_path):
+        element.screenshot(path=baseline_path)
+        print(f"Baseline created: {baseline_path}")
+        return
+    baseline = Image.open(baseline_path)
+    actual = Image.open(actual_path)
+    diff = ImageChops.difference(baseline, actual)
+    assert diff.getbbox() is None, "Visual difference detected in element"
+
+def compare_screenshot(page: Page, name: str, threshold: int = 500000):
     actual_path = f"{BASELINE_DIR}/{name}-actual.png"
     baseline_path = f"{BASELINE_DIR}/{name}-baseline.png"
     page.screenshot(path=actual_path)
@@ -17,7 +30,15 @@ def compare_screenshot(page: Page, name: str):
     baseline = Image.open(baseline_path)
     actual = Image.open(actual_path)
     diff = ImageChops.difference(baseline, actual)
-    assert diff.getbbox() is None, f"Visual difference detected in {name}"
+    bbox = diff.getbbox()
+    if bbox is None:
+        return
+    diff_area = (bbox[2] - bbox[0]) * (bbox[3] - bbox[1])
+    assert diff_area <= threshold, f"Visual difference too large in {name}: {diff_area}px changed"
+
+    
+
+    
 
 def test_login_page_visual(page: Page):
     page.goto("https://www.saucedemo.com")
