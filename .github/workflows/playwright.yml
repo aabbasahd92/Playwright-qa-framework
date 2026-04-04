@@ -24,6 +24,7 @@ jobs:
           pip install pytest-html
           pip install allure-pytest
           pip install pytest-xdist
+          pip install Pillow
 
       - name: Install browsers
         run: playwright install --with-deps
