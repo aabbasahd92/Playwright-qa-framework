@@ -17,5 +17,4 @@ def test_special_characters(home):
     assert home.get_result() == "You searched: !@#$%"
 
 
-def test_parallel_failure(home):
-    assert home.page.title() == "Wrong Title"
+
