@@ -1,6 +1,6 @@
 # QA Automation Framework — Playwright + Python
 
-![CI/CD](https://github.com/aabbasahd92/qa-ai-project/actions/workflows/playwright.yml/badge.svg)
+![CI/CD](https://github.com/aabbasahd92/Playwright-qa-framework/actions/workflows/playwright.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.9-blue)
 ![Playwright](https://img.shields.io/badge/Playwright-1.58-green)
 ![Tests](https://img.shields.io/badge/Tests-200%2B-brightgreen)
